@@ -1,1 +1,581 @@
+$engine: 3
+$onesync: on
+name: The Orders Recipe (Nemesis Edit)
+version: 0.0.2
+author: EricD
+description: An adjusted recipe for qb-core using ox inventory and CommunityOx resources, preconfigured in es-ES.
 
+tasks:
+
+  #  Download Base Files
+  - action: download_github
+    src: https://github.com/TheOrderFivem/txAdminRecipe
+    ref: main
+    dest: ./tmp/theorder
+
+  - action: move_path
+    src: ./tmp/theorder/server.cfg
+    dest: ./server.cfg
+
+  - action: move_path
+    src: ./tmp/theorder/ox.cfg
+    dest: ./ox.cfg
+
+  - action: move_path
+    src: ./tmp/theorder/voice.cfg
+    dest: ./voice.cfg
+
+  - action: move_path
+    src: ./tmp/theorder/aceperms.cfg
+    dest: ./aceperms.cfg
+
+  - action: move_path
+    src: ./tmp/theorder/misc.cfg
+    dest: ./misc.cfg
+
+  - action: move_path
+    src: ./tmp/theorder/settings.cfg
+    dest: ./settings.cfg
+
+  - action: move_path
+    src: ./tmp/theorder/myLogo.png
+    dest: ./myLogo.png
+
+  # Prepare Database
+  - action: connect_database
+
+  - action: query_database
+    file: ./tmp/theorder/sqlfiles/qbcore.sql
+
+  - action: query_database
+    file: ./tmp/theorder/sqlfiles/psbanking.sql
+
+  - action: query_database
+    file: ./tmp/theorder/sqlfiles/psmdt.sql
+
+  - action: query_database
+    file: ./tmp/theorder/sqlfiles/illenium.sql
+
+  # STANDALONE
+  - action: download_github
+    src: https://github.com/citizenfx/cfx-server-data
+    subpath: resources
+    dest: ./resources/[cfx-default]
+
+  - action: remove_path
+    path: ./resources/[cfx-default]/[gameplay]/chat
+
+  - action: download_github
+    src: https://github.com/Bob74/bob74_ipl
+    ref: master
+    dest: ./resources/[standalone]/bob74_ipl
+
+  - action: download_github
+    src: https://github.com/citizenfx/screenshot-basic
+    ref: master
+    dest: ./resources/[standalone]/screenshot-basic
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/progressbar
+    ref: main
+    dest: ./resources/[standalone]/progressbar
+
+  - action: download_github
+    src: https://github.com/Xogy/xsound
+    ref: master
+    dest: ./resources/[standalone]/xsound
+
+  - action: download_github
+    src: https://github.com/Project-Sloth/ps-ui
+    ref: main
+    dest: ./resources/[standalone]/ps-ui
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/connectqueue
+    ref: master
+    dest: ./resources/[standalone]/connectqueue
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/PolyZone
+    ref: master
+    dest: ./resources/[standalone]/PolyZone
+
+  - action: download_github
+    src: https://github.com/BaziForYou/MugShotBase64
+    ref: main
+    subpath: MugShotBase64
+    dest: ./resources/[standalone]/MugShotBase64
+
+  - action: download_file
+    url: https://raw.githubusercontent.com/BaziForYou/MugShotBase64/main/README.md
+    path: ./resources/[standalone]/MugShotBase64/README.md
+
+  - action: download_file
+    url: https://raw.githubusercontent.com/BaziForYou/MugShotBase64/main/LICENSE.md
+    path: ./resources/[standalone]/MugShotBase64/LICENSE.md
+
+  - action: download_file
+    url: https://github.com/ThymonA/menuv/releases/download/v1.4.1/menuv_v1.4.1.zip
+    path: ./tmp/menuv.zip
+
+  - action: unzip
+    src: ./tmp/menuv.zip
+    dest: ./resources/[standalone]/menuv
+
+  - action: download_file
+    url: https://github.com/Renewed-Scripts/Renewed-Weathersync/releases/latest/download/Renewed-Weathersync.zip
+    path: ./tmp/Renewed-Weathersync.zip
+
+  - action: unzip
+    src: ./tmp/Renewed-Weathersync.zip
+    dest: ./resources/[standalone]
+
+  - action: download_file
+    url: https://github.com/D4isDAVID/loadscreen/releases/latest/download/loadscreen.zip
+    path: ./tmp/loadscreen.zip
+
+  - action: unzip
+    src: ./tmp/loadscreen.zip
+    dest: ./resources/[standalone]
+
+  - action: copy_path
+    src: ./myLogo.png
+    dest: ./resources/[standalone]/loadscreen/html/assets/logo.png
+    overwrite: true
+
+  # Libs
+  - action: download_github
+    src: https://github.com/TheOrderFivem/community_bridge/
+    ref: main
+    dest: ./resources/[libs]/community_bridge
+
+  - action: move_path
+    src: ./tmp/theorder/edits/community_bridge/settings/clientConfig.lua
+    dest: ./resources/[libs]/community_bridge/settings/clientConfig.lua
+    overwrite: true
+
+  - action: move_path
+    src: ./tmp/theorder/edits/community_bridge/settings/serverConfig.lua
+    dest: ./resources/[libs]/community_bridge/settings/serverConfig.lua
+    overwrite: true
+
+  - action: move_path
+    src: ./tmp/theorder/edits/community_bridge/settings/sharedConfig.lua
+    dest: ./resources/[libs]/community_bridge/settings/sharedConfig.lua
+    overwrite: true
+
+  - action: download_github
+    src: https://github.com/Byte-Labs-Studio/bl_bridge/
+    ref: main
+    dest: ./resources/[libs]/bl_bridge
+
+  - action: download_github
+    src: https://github.com/LeonardoSoares98/lc_utils/
+    ref: main
+    dest: ./resources/[libs]/lc_utils
+
+  - action: download_github
+    src: https://github.com/rumaier/r_bridge/
+    ref: main
+    dest: ./resources/[libs]/r_bridge
+
+  # OX resources (CommunityOx)
+  - action: download_file
+    url: https://github.com/CommunityOx/ox_lib/releases/latest/download/ox_lib.zip
+    path: ./tmp/ox_lib.zip
+
+  - action: unzip
+    src: ./tmp/ox_lib.zip
+    dest: ./resources/[ox]
+
+  - action: download_file
+    url: https://github.com/CommunityOx/ox_target/releases/latest/download/ox_target.zip
+    path: ./tmp/ox_target.zip
+
+  - action: unzip
+    src: ./tmp/ox_target.zip
+    dest: ./resources/[ox]
+
+  - action: download_file
+    url: https://github.com/CommunityOx/oxmysql/releases/latest/download/oxmysql.zip
+    path: ./tmp/oxmysql.zip
+
+  - action: unzip
+    src: ./tmp/oxmysql.zip
+    dest: ./resources/[ox]
+
+  - action: download_file
+    url: https://github.com/CommunityOx/ox_inventory/releases/latest/download/ox_inventory.zip
+    path: ./tmp/ox_inventory.zip
+
+  - action: unzip
+    src: ./tmp/ox_inventory.zip
+    dest: ./resources/[ox]
+
+  - action: move_path
+    src: ./tmp/theorder/edits/ox_inventory/items.lua
+    dest: ./resources/[ox]/ox_inventory/data/items.lua
+    overwrite: true
+
+  - action: move_path
+    src: ./tmp/theorder/edits/ox_inventory/stashes.lua
+    dest: ./resources/[ox]/ox_inventory/data/stashes.lua
+    overwrite: true
+
+  - action: move_path
+    src: ./tmp/theorder/edits/ox_inventory/evidence.lua
+    dest: ./resources/[ox]/ox_inventory/data/evidence.lua
+    overwrite: true
+
+  - action: download_file
+    url: https://github.com/CommunityOx/ox_doorlock/releases/latest/download/ox_doorlock.zip
+    path: ./tmp/ox_doorlock.zip
+
+  - action: unzip
+    src: ./tmp/ox_doorlock.zip
+    dest: ./resources/[ox]
+
+  - action: waste_time
+    seconds: 5
+
+  # images for ox_inventory
+  - action: download_file
+    url: https://github.com/TheOrderFivem/RecipeImages/archive/refs/heads/main.zip
+    path: ./tmp/RecipeImages.zip
+
+  - action: unzip
+    src: ./tmp/RecipeImages.zip
+    dest: ./tmp/RecipeImages
+
+  - action: copy_path
+    src: ./tmp/RecipeImages/RecipeImages-main/images
+    dest: ./resources/[ox]/ox_inventory/web/images
+    overwrite: true
+
+  # addons (filtrados, sin los que quieres suprimir)
+  - action: download_github
+    src: https://github.com/rumaier/r_communityservice
+    ref: main
+    dest: ./resources/[addon]/r_communityservice
+
+  - action: download_file
+    url: https://github.com/rumaier/r_drugsales/releases/latest/download/r_drugsales.zip
+    path: ./tmp/r_drugsales.zip
+
+  - action: unzip
+    src: ./tmp/r_drugsales.zip
+    dest: ./resources/[addon]
+
+  - action: download_file
+    url: https://github.com/Coffeelot/cw-crafting/releases/latest/download/cw-crafting.zip
+    path: ./tmp/cw-crafting.zip
+
+  - action: unzip
+    src: ./tmp/cw-crafting.zip
+    dest: ./resources/[addon]
+
+  - action: download_file
+    url: https://github.com/acscripts/ac_scoreboard/releases/latest/download/ac_scoreboard.zip
+    path: ./tmp/ac_scoreboard.zip
+
+  - action: unzip
+    src: ./tmp/ac_scoreboard.zip
+    dest: ./resources/[addon]
+
+  - action: waste_time
+    seconds: 3
+
+  - action: download_github
+    src: https://github.com/MT-Scripts/mt_policeradar
+    ref: main
+    dest: ./resources/[addon]/mt_policeradar
+
+  - action: download_file
+    url: https://github.com/LeonardoSoares98/lc_fuel/releases/latest/download/lc_fuel.zip
+    path: ./tmp/lc_fuel.zip
+
+  - action: unzip
+    src: ./tmp/lc_fuel.zip
+    dest: ./resources/[addon]
+
+  - action: download_github
+    src: https://github.com/alp1x/um-idcard
+    ref: main
+    dest: ./resources/[addon]/um-idcard
+
+  - action: download_github
+    src: https://github.com/Project-Sloth/ps-dispatch
+    ref: main
+    dest: ./resources/[addon]/ps-dispatch
+
+  - action: download_github
+    src: https://github.com/Sleepless-Development/sleepless_inventory_addons
+    ref: main
+    dest: ./resources/[addon]/sleepless_inventory_addons
+
+  - action: move_path
+    src: ./tmp/theorder/edits/sleepless_inventory_addons/backItems/config.lua
+    dest: ./resources/[addon]/sleepless_inventory_addons/backItems/config.lua
+    overwrite: true
+
+  - action: download_github
+    src: https://github.com/The-Orders-Storage/ps-banking
+    ref: main
+    dest: ./resources/[addon]/ps-banking
+
+  - action: download_github
+    src: https://github.com/wasabirobby/wasabi_fishing
+    ref: main
+    dest: ./resources/[addon]/wasabi_fishing
+
+  - action: copy_path
+    src: ./resources/[addon]/wasabi_fishing/Inventory_Items/InventoryImages
+    dest: ./resources/[ox]/ox_inventory/web/images
+    overwrite: true
+
+  - action: download_github
+    src: https://github.com/alberttheprince/rpemotes-reborn
+    ref: master
+    dest: ./resources/[addon]/rpemotes-reborn
+
+  - action: waste_time
+    seconds: 4
+
+  - action: download_github
+    src: https://github.com/gononono64/mrc-storage
+    ref: main
+    dest: ./resources/[addon]/mrc-storage
+
+  - action: copy_path
+    src: ./resources/[addon]/mrc-storage/images/boltcutters.png
+    dest: ./resources/[ox]/ox_inventory/web/images/boltcutters.png
+    overwrite: true
+
+  - action: copy_path
+    src: ./resources/[addon]/mrc-storage/images/keypad.png
+    dest: ./resources/[ox]/ox_inventory/web/images/keypad.png
+    overwrite: true
+
+  - action: copy_path
+    src: ./resources/[addon]/mrc-storage/images/lock.png
+    dest: ./resources/[ox]/ox_inventory/web/images/lock.png
+    overwrite: true
+
+  - action: copy_path
+    src: ./resources/[addon]/mrc-storage/images/storage_box.png
+    dest: ./resources/[ox]/ox_inventory/web/images/storage_box.png
+    overwrite: true
+
+  # VOICE
+  - action: download_github
+    src: https://github.com/AvarianKnight/pma-voice
+    ref: main
+    dest: ./resources/[voice]/pma-voice
+
+  - action: download_file
+    url: https://github.com/SOH69/mm_radio/releases/latest/download/mm_radio.zip
+    path: ./tmp/mm_radio.zip
+
+  - action: unzip
+    src: ./tmp/mm_radio.zip
+    dest: ./resources/[voice]
+
+  # Assets
+  - action: download_github
+    src: https://github.com/qbcore-framework/dealer_map
+    ref: main
+    dest: ./resources/[assets]/dealer_map
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/prison_map
+    ref: main
+    dest: ./resources/[assets]/[prison_map]
+
+  - action: download_github
+    src: https://github.com/Lorenc95/pillbox
+    ref: main
+    dest: ./resources/[assets]/pillbox
+
+  - action: waste_time
+    seconds: 3
+
+  # Downloading QBCore resources (filtrado)
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-core
+    ref: main
+    dest: ./resources/[qb]/qb-core
+
+  - action: download_github
+    src: https://github.com/The-Orders-Storage/qb-multicharacter
+    ref: main
+    dest: ./resources/[qb]/qb-multicharacter
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-vehiclesales
+    ref: main
+    dest: ./resources/[qb]/qb-vehiclesales
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-vehicleshop
+    ref: main
+    dest: ./resources/[qb]/qb-vehicleshop
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-hud
+    ref: main
+    dest: ./resources/[qb]/qb-hud
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-adminmenu
+    ref: main
+    dest: ./resources/[qb]/qb-adminmenu
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-management
+    ref: main
+    dest: ./resources/[qb]/qb-management
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-ambulancejob
+    ref: main
+    dest: ./resources/[qb]/qb-ambulancejob
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-radialmenu
+    ref: main
+    dest: ./resources/[qb]/qb-radialmenu
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-crypto
+    ref: main
+    dest: ./resources/[qb]/qb-crypto
+
+  - action: download_github
+    src: https://github.com/The-Orders-Storage/qb-policejob
+    ref: main
+    dest: ./resources/[qb]/qb-policejob
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-vehiclekeys
+    ref: main
+    dest: ./resources/[qb]/qb-vehiclekeys
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-mechanicjob
+    ref: main
+    dest: ./resources/[qb]/qb-mechanicjob
+
+  - action: waste_time
+    seconds: 5
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-phone
+    ref: main
+    dest: ./resources/[qb]/qb-phone
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-spawn
+    ref: main
+    dest: ./resources/[qb]/qb-spawn
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-smallresources
+    ref: main
+    dest: ./resources/[qb]/qb-smallresources
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-prison
+    ref: main
+    dest: ./resources/[qb]/qb-prison
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-diving
+    ref: main
+    dest: ./resources/[qb]/qb-diving
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-minigames
+    ref: main
+    dest: ./resources/[qb]/qb-minigames
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-newsjob
+    ref: main
+    dest: ./resources/[qb]/qb-newsjob
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-jewelery
+    ref: main
+    dest: ./resources/[qb]/qb-jewelery
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-garages
+    ref: main
+    dest: ./resources/[qb]/qb-garages
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-bankrobbery
+    ref: main
+    dest: ./resources/[qb]/qb-bankrobbery
+
+  - action: download_file
+    url: https://github.com/iLLeniumStudios/illenium-appearance/releases/download/v5.7.0/illenium-appearance.zip
+    path: ./tmp/illenium-appearance.zip
+
+  - action: unzip
+    src: ./tmp/illenium-appearance.zip
+    dest: ./resources/[qb]
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-interior
+    ref: main
+    dest: ./resources/[qb]/qb-interior
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-menu
+    ref: main
+    dest: ./resources/[qb]/qb-menu
+
+  - action: download_github
+    src: https://github.com/qbcore-framework/qb-input
+    ref: main
+    dest: ./resources/[qb]/qb-input
+
+  # Ajustes Nemesis en server.cfg
+  - action: write_file
+    file: ./server.cfg
+    append: true
+    data: |
+      # === NEMESIS PRESETS ===
+      sv_maxclients 64
+      sv_enforceGameBuild 3570
+
+      set steam_webApiKey "none"
+      load_server_icon myLogo.png
+      sets locale "es-ES"
+
+      # Desarrolladores
+      #sets 🖥️Desarrolladores ""
+      #sets website "https://proyecto-nemesis.com"
+      sets 🔧Framework "QB-Core"
+      #sets 📢Discord ""
+      #sets 📱Tiktok ""
+      #sets 🎞️Youtube "l"
+      sets 🌍Idioma "Español"
+      sets 🎤Microfono "Obligatorio"
+      sets 🔓Whitelist "Abierta"
+      #sets activitypubFeed ""
+
+      # Banner del servidor
+      #sets banner_detail ""
+      #sets banner_connecting ""
+
+      # QBCore locale config
+      setr qb_locale "es"
+
+      # QBCore UseTarget
+      setr UseTarget true
+
+  # Clean up
+  - action: remove_path
+    path: ./tmp
