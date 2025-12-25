@@ -1,14 +1,20 @@
-# Sistema / editor
-.vscode/
-.idea/
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+.history/
+
+# Sistema
 .DS_Store
 Thumbs.db
 
-# Logs y temporales
+# Logs / temporales
 *.log
 *.tmp
 *.bak
 
-# Node/npm (por si usas herramientas)
+# Node (por si usas herramientas para generar cosas)
 node_modules/
 dist/
