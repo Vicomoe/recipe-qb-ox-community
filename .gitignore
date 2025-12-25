@@ -15,6 +15,10 @@ Thumbs.db
 *.tmp
 *.bak
 
-# Node (por si usas herramientas para generar cosas)
+# Node (por si usas herramientas)
 node_modules/
 dist/
+
+# Carpeta de pruebas locales
+test/
+local/
